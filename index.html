@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Mentorship Network — Y4Y</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background: #f8fafc;
+            color: #1a1a2e;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            flex: 1;
+        }
+        /* Navigation */
+        .nav {
+            background: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #5B6EF5;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #4a5568;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #5B6EF5;
+        }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .btn-primary {
+            background: #5B6EF5;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #4a5bd9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(91, 110, 245, 0.3);
+        }
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #2d3748;
+        }
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+        .btn-success {
+            background: #48bb78;
+            color: white;
+        }
+        .btn-success:hover {
+            background: #38a169;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #5B6EF5;
+            color: #5B6EF5;
+        }
+        .btn-outline:hover {
+            background: #5B6EF5;
+            color: white;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(135deg, #f0f4ff 0%, #e8ecff 100%);
+            border-radius: 20px;
+            margin-bottom: 40px;
+        }
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+        .hero h1 span {
+            color: #5B6EF5;
+        }
+        .hero p {
+            font-size: 18px;
+            color: #4a5568;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        .tab {
+            padding: 10px 24px;
+            border: none;
+            background: none;
+            font-weight: 600;
+            color: #718096;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .tab.active {
+            background: #5B6EF5;
+            color: white;
+        }
+        .tab:hover:not(.active) {
+            background: #e2e8f0;
+        }
+
+        /* Mentor Cards */
+        .mentor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 20px;
+        }
+        .mentor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+        .mentor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .mentor-card .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: #5B6EF5;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 15px;
+        }
+        .mentor-card h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .mentor-card .title {
+            color: #5B6EF5;
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .mentor-card .bio {
+            color: #4a5568;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .mentor-card .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+        .mentor-card .skill-tag {
+            background: #e2e8f0;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #2d3748;
+        }
+        .mentor-card .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            color: #718096;
+        }
+        .mentor-card .availability {
+            color: #48bb78;
+            font-weight: 600;
+        }
+
+        /* Modals */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-overlay.open {
+            display: flex;
+        }
+        .modal {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #a0aec0;
+        }
+        .modal-close:hover {
+            color: #2d3748;
+        }
+        .modal h2 {
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #2d3748;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #5B6EF5;
+        }
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            background: #2d3748;
+            color: white;
+            font-weight: 500;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.4s;
+            z-index: 2000;
+        }
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .toast.success { background: #48bb78; }
+        .toast.error { background: #fc8181; }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #718096;
+        }
+        .empty-state .icon {
+            font-size: 50px;
+            margin-bottom: 15px;
+        }
+        .empty-state h3 {
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        /* Verification Badge */
+        .verified-badge {
+            display: inline-block;
+            background: #48bb78;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        .pending-badge {
+            display: inline-block;
+            background: #ed8936;
+            color: white;
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0D0F1A;
+            color: #e2e8f0;
+            padding: 60px 20px 30px;
+            margin-top: 60px;
+        }
+        .footer .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-brand .footer-logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #5B6EF5;
+            margin-bottom: 10px;
+        }
+        .footer-brand p {
+            color: #a0aec0;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        .footer-links h4 {
+            color: white;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .footer-links a {
+            display: block;
+            color: #a0aec0;
+            text-decoration: none;
+            margin-bottom: 8px;
+            font-size: 14px;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+        .footer-links a:hover {
+            color: #5B6EF5;
+        }
+        .footer-bottom {
+            border-top: 1px solid #2d3748;
+            padding-top: 20px;
+            text-align: center;
+            color: #a0aec0;
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .nav-links {
+                justify-content: center;
+            }
+            .hero h1 {
+                font-size: 28px;
+            }
+            .mentor-grid {
+                grid-template-columns: 1fr;
+            }
+            .modal {
+                padding: 20px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-brand">
+        <div class="nav-logo">🌐 Y4Y</div>
+        <span style="font-weight: 300; color: #718096;">Mentorship Network</span>
+    </div>
+    <div class="nav-links">
+        <a href="#" onclick="switchTab('mentors')">Find Mentors</a>
+        <a href="#" onclick="switchTab('mentees')">Mentee Requests</a>
+        <a href="#" onclick="switchTab('sessions')">My Sessions</a>
+        <a href="#" onclick="openModal('mentorRegisterModal')" class="btn btn-primary">Register as Mentor</a>
+        <a href="#" onclick="openModal('menteeRequestModal')" class="btn btn-outline">Request Mentorship</a>
+    </div>
+</nav>
+
+<div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Global <span>Mentorship</span> Network</h1>
+        <p>Connect with experienced mentors or become a mentor yourself. All mentors are verified through institutional email.</p>
+        <div class="hero-actions">
+            <button class="btn btn-primary" onclick="openModal('mentorRegisterModal')">Become a Mentor</button>
+            <button class="btn btn-outline" onclick="openModal('menteeRequestModal')">Find a Mentor</button>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab active" onclick="switchTab('mentors')">👨‍🏫 Mentors</button>
+        <button class="tab" onclick="switchTab('mentees')">🙋 Mentee Requests</button>
+        <button class="tab" onclick="switchTab('sessions')">📅 My Sessions</button>
+    </div>
+
+    <!-- Mentors Grid -->
+    <div id="mentorsTab">
+        <div class="mentor-grid" id="mentorGrid">
+            <!-- Populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Mentees Tab -->
+    <div id="menteesTab" style="display: none;">
+        <div class="mentor-grid" id="menteeGrid">
+            <!-- Populated by JavaScript -->
+        </div>
+    </div>
+
+    <!-- Sessions Tab -->
+    <div id="sessionsTab" style="display: none;">
+        <div id="sessionList">
+            <!-- Populated by JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- Mentor Registration Modal -->
+<div class="modal-overlay" id="mentorRegisterModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('mentorRegisterModal')">&times;</button>
+        <h2>Register as a Mentor</h2>
+        <p style="color: #718096; margin-bottom: 20px;">All mentors must verify their institutional email address.</p>
+        <form id="mentorRegisterForm">
+            <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" id="mentorName" required placeholder="Dr. Jane Smith">
+            </div>
+            <div class="form-group">
+                <label>Institutional Email *</label>
+                <input type="email" id="mentorEmail" required placeholder="jane.smith@university.edu">
+                <small style="color: #718096;">Must be a valid institutional or professional email</small>
+            </div>
+            <div class="form-group">
+                <label>Professional Title *</label>
+                <input type="text" id="mentorTitle" required placeholder="Professor of International Relations">
+            </div>
+            <div class="form-group">
+                <label>Bio / Expertise *</label>
+                <textarea id="mentorBio" required placeholder="Describe your expertise, experience, and what you can offer as a mentor..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Skills (comma-separated)</label>
+                <input type="text" id="mentorSkills" placeholder="Leadership, Public Speaking, Project Management">
+            </div>
+            <div class="form-group">
+                <label>Available Hours (per week)</label>
+                <input type="number" id="mentorHours" value="2" min="1" max="20">
+            </div>
+            <div class="form-group">
+                <label>LinkedIn / Professional Profile URL</label>
+                <input type="url" id="mentorProfile" placeholder="https://linkedin.com/in/yourprofile">
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('mentorRegisterModal')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit for Verification</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Mentee Request Modal -->
+<div class="modal-overlay" id="menteeRequestModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal('menteeRequestModal')">&times;</button>
+        <h2>Request a Mentor</h2>
+        <p style="color: #718096; margin-bottom: 20px;">Tell us what you're looking for and we'll connect you with the right mentor.</p>
+        <form id="menteeRequestForm">
+            <div class="form-group">
+                <label>Your Full Name *</label>
+                <input type="text" id="menteeName" required placeholder="John Doe">
+            </div>
+            <div class="form-group">
+                <label>Your Email *</label>
+                <input type="email" id="menteeEmail" required placeholder="john@example.com">
+            </div>
+            <div class="form-group">
+                <label>What do you want to learn? *</label>
+                <select id="menteeFocus" required>
+                    <option value="">Select an area</option>
+                    <option value="Leadership">Leadership</option>
+                    <option value="Career Development">Career Development</option>
+                    <option value="Public Speaking">Public Speaking</option>
+                    <option value="Project Management">Project Management</option>
+                    <option value="Research">Research</option>
+                    <option value="Entrepreneurship">Entrepreneurship</option>
+                    <option value="Advocacy">Advocacy</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Your Goals *</label>
+                <textarea id="menteeGoals" required placeholder="What do you hope to achieve through mentorship?"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Preferred Mentorship Format</label>
+                <select id="menteeFormat">
+                    <option value="weekly">Weekly Calls</option>
+                    <option value="biweekly">Bi-Weekly Calls</option>
+                    <option value="monthly">Monthly Calls</option>
+                    <option value="flexible">Flexible</option>
+                </select>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="closeModal('menteeRequestModal')">Cancel</button>
+                <button type="submit" class="btn btn-success">Submit Request</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">Y4Y</div>
+                <p>Youth for Youth — The world's most comprehensive directory of youth organizations across all 205 countries and 6 WHO regions.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Directory</h4>
+                <a href="#" onclick="window.location.href='/'">Browse Organizations</a>
+                <a href="#" onclick="window.location.href='/#registerOrgModal'">Add Organization</a>
+                <a href="#" onclick="window.location.href='/#view-collaborate'">Collaborations</a>
+            </div>
+            <div class="footer-links">
+                <h4>Opportunities</h4>
+                <a href="#" onclick="window.location.href='/#view-opportunities'">Browse Opportunities</a>
+                <a href="#" onclick="window.location.href='/#createInvitationModal'">Post Opportunity</a>
+                <a href="#" onclick="window.location.href='/#view-empower'">Empower Hub</a>
+            </div>
+            <div class="footer-links">
+                <h4>WHO Regions</h4>
+                <a href="#" onclick="window.location.href='/#view-directory'">AFRO — Africa</a>
+                <a href="#" onclick="window.location.href='/#view-directory'">AMRO — Americas</a>
+                <a href="#" onclick="window.location.href='/#view-directory'">EURO — Europe</a>
+                <a href="#" onclick="window.location.href='/#view-directory'">EMRO — E. Mediterranean</a>
+                <a href="#" onclick="window.location.href='/#view-directory'">SEARO — SE Asia</a>
+                <a href="#" onclick="window.location.href='/#view-directory'">WPRO — W. Pacific</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Y4Y — Youth for Youth. Built for young change-makers worldwide. 🌍</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ============================================================
+    // STATE
+    // ============================================================
+    const state = {
+        mentors: [],
+        mentees: [],
+        sessions: [],
+        currentTab: 'mentors'
+    };
+
+    // ============================================================
+    // INIT
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', () => {
+        loadMentors();
+        loadMentees();
+        loadSessions();
+    });
+
+    // ============================================================
+    // DATA LOADING
+    // ============================================================
+    function loadMentors() {
+        const stored = localStorage.getItem('y4y_mentors');
+        if (stored) {
+            state.mentors = JSON.parse(stored);
+        } else {
+            state.mentors = [
+                {
+                    id: 1,
+                    name: 'Dr. Jane Smith',
+                    email: 'jane.smith@harvard.edu',
+                    title: 'Professor of International Relations',
+                    bio: '20+ years experience in youth development and international policy. Former UN Youth Advisor.',
+                    skills: ['Leadership', 'Policy', 'International Relations'],
+                    hours: 3,
+                    profile: 'https://linkedin.com/in/janesmith',
+                    verified: true,
+                    createdAt: new Date().toISOString()
+                },
+                {
+                    id: 2,
+                    name: 'Michael Chen',
+                    email: 'michael.chen@mit.edu',
+                    title: 'Startup Founder & Tech Mentor',
+                    bio: 'Built 3 successful startups. Passionate about helping young entrepreneurs turn ideas into reality.',
+                    skills: ['Entrepreneurship', 'Technology', 'Innovation'],
+                    hours: 2,
+                    profile: 'https://linkedin.com/in/michaelchen',
+                    verified: true,
+                    createdAt: new Date().toISOString()
+                }
+            ];
+            saveMentors();
+        }
+        renderMentors();
+    }
+
+    function loadMentees() {
+        const stored = localStorage.getItem('y4y_mentees');
+        if (stored) {
+            state.mentees = JSON.parse(stored);
+        } else {
+            state.mentees = [
+                {
+                    id: 1,
+                    name: 'Sarah Johnson',
+                    email: 'sarah@youthorg.org',
+                    focus: 'Leadership',
+                    goals: 'I want to become a more effective leader for my youth organization.',
+                    format: 'weekly',
+                    status: 'pending',
+                    createdAt: new Date().toISOString()
+                }
+            ];
+            saveMentees();
+        }
+        renderMentees();
+    }
+
+    function loadSessions() {
+        const stored = localStorage.getItem('y4y_sessions');
+        if (stored) {
+            state.sessions = JSON.parse(stored);
+        } else {
+            state.sessions = [];
+            saveSessions();
+        }
+        renderSessions();
+    }
+
+    function saveMentors() {
+        localStorage.setItem('y4y_mentors', JSON.stringify(state.mentors));
+    }
+
+    function saveMentees() {
+        localStorage.setItem('y4y_mentees', JSON.stringify(state.mentees));
+    }
+
+    function saveSessions() {
+        localStorage.setItem('y4y_sessions', JSON.stringify(state.sessions));
+    }
+
+    // ============================================================
+    // RENDER FUNCTIONS
+    // ============================================================
+    function renderMentors() {
+        const grid = document.getElementById('mentorGrid');
+        if (state.mentors.length === 0) {
+            grid.innerHTML = `
+                <div class="empty-state" style="grid-column: 1/-1;">
+                    <div class="icon">👨‍🏫</div>
+                    <h3>No mentors registered yet</h3>
+                    <p>Be the first to register as a mentor!</p>
+                    <button class="btn btn-primary" onclick="openModal('mentorRegisterModal')">Register as Mentor</button>
+                </div>
+            `;
+            return;
+        }
+        grid.innerHTML = state.mentors.map(mentor => `
+            <div class="mentor-card">
+                <div class="avatar">${mentor.name.charAt(0)}</div>
+                <h3>${mentor.name} ${mentor.verified ? '<span class="verified-badge">✓ Verified</span>' : '<span class="pending-badge">⏳ Pending</span>'}</h3>
+                <div class="title">${mentor.title}</div>
+                <div class="bio">${mentor.bio}</div>
+                <div class="skills">
+                    ${mentor.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
+                </div>
+                <div class="meta">
+                    <span>⏰ ${mentor.hours}h/week</span>
+                    <span class="availability">● Available</span>
+                </div>
+                <br>
+                <button class="btn btn-primary" style="width:100%;" onclick="requestMentor(${mentor.id})">Request Mentorship</button>
+            </div>
+        `).join('');
+    }
+
+    function renderMentees() {
+        const grid = document.getElementById('menteeGrid');
+        if (state.mentees.length === 0) {
+            grid.innerHTML = `
+                <div class="empty-state" style="grid-column: 1/-1;">
+                    <div class="icon">🙋</div>
+                    <h3>No mentee requests yet</h3>
+                    <p>Youth are looking for mentors like you!</p>
+                </div>
+            `;
+            return;
+        }
+        grid.innerHTML = state.mentees.map(mentee => `
+            <div class="mentor-card">
+                <div class="avatar" style="background: #48bb78;">${mentee.name.charAt(0)}</div>
+                <h3>${mentee.name}</h3>
+                <div class="title">🎯 ${mentee.focus}</div>
+                <div class="bio">${mentee.goals}</div>
+                <div class="meta">
+                    <span>📅 ${mentee.format}</span>
+                    <span class="${mentee.status === 'pending' ? 'pending-badge' : 'verified-badge'}">${mentee.status === 'pending' ? '⏳ Pending' : '✓ Matched'}</span>
+                </div>
+                <br>
+                <button class="btn btn-success" style="width:100%;" onclick="acceptMentee(${mentee.id})">Accept Mentee</button>
+            </div>
+        `).join('');
+    }
+
+    function renderSessions() {
+        const container = document.getElementById('sessionList');
+        if (state.sessions.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                    <div class="icon">📅</div>
+                    <h3>No sessions scheduled</h3>
+                    <p>Your mentorship sessions will appear here.</p>
+                </div>
+            `;
+            return;
+        }
+        container.innerHTML = state.sessions.map(session => `
+            <div class="mentor-card" style="margin-bottom: 15px;">
+                <h3>${session.title}</h3>
+                <p>${session.description}</p>
+                <div class="meta">
+                    <span>📅 ${session.date}</span>
+                    <span>⏰ ${session.time}</span>
+                    <span class="availability">${session.status}</span>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // ============================================================
+    // TAB SWITCHING
+    // ============================================================
+    function switchTab(tab) {
+        state.currentTab = tab;
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(t => {
+            if (t.textContent.includes(tab) || t.textContent.includes(tab.charAt(0).toUpperCase() + tab.slice(1))) {
+                t.classList.add('active');
+            }
+        });
+
+        document.getElementById('mentorsTab').style.display = tab === 'mentors' ? 'block' : 'none';
+        document.getElementById('menteesTab').style.display = tab === 'mentees' ? 'block' : 'none';
+        document.getElementById('sessionsTab').style.display = tab === 'sessions' ? 'block' : 'none';
+    }
+
+    // ============================================================
+    // MENTOR FUNCTIONS
+    // ============================================================
+    document.getElementById('mentorRegisterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const mentor = {
+            id: Date.now(),
+            name: document.getElementById('mentorName').value,
+            email: document.getElementById('mentorEmail').value,
+            title: document.getElementById('mentorTitle').value,
+            bio: document.getElementById('mentorBio').value,
+            skills: document.getElementById('mentorSkills').value.split(',').map(s => s.trim()).filter(Boolean),
+            hours: parseInt(document.getElementById('mentorHours').value),
+            profile: document.getElementById('mentorProfile').value,
+            verified: false,
+            createdAt: new Date().toISOString()
+        };
+
+        const emailDomain = mentor.email.split('@')[1];
+        const institutionalDomains = ['.edu', '.ac.', '.org', '.gov', '.int'];
+        const isInstitutional = institutionalDomains.some(d => emailDomain && emailDomain.includes(d));
+
+        if (!isInstitutional) {
+            showToast('Please use an institutional or professional email address.', 'error');
+            return;
+        }
+
+        state.mentors.push(mentor);
+        saveMentors();
+        renderMentors();
+        closeModal('mentorRegisterModal');
+        this.reset();
+        showToast('🎉 Mentor registration submitted! We\'ll verify your email within 24 hours.', 'success');
+
+        setTimeout(() => {
+            const found = state.mentors.find(m => m.id === mentor.id);
+            if (found) {
+                found.verified = true;
+                saveMentors();
+                renderMentors();
+                showToast('✅ Your mentor profile has been verified!', 'success');
+            }
+        }, 3000);
+    });
+
+    // ============================================================
+    // MENTEE FUNCTIONS
+    // ============================================================
+    document.getElementById('menteeRequestForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const mentee = {
+            id: Date.now(),
+            name: document.getElementById('menteeName').value,
+            email: document.getElementById('menteeEmail').value,
+            focus: document.getElementById('menteeFocus').value,
+            goals: document.getElementById('menteeGoals').value,
+            format: document.getElementById('menteeFormat').value,
+            status: 'pending',
+            createdAt: new Date().toISOString()
+        };
+
+        state.mentees.push(mentee);
+        saveMentees();
+        renderMentees();
+        closeModal('menteeRequestModal');
+        this.reset();
+        showToast('🙋 Mentorship request submitted! We\'ll match you with a mentor soon.', 'success');
+    });
+
+    function requestMentor(mentorId) {
+        const mentor = state.mentors.find(m => m.id === mentorId);
+        if (!mentor) return;
+
+        const session = {
+            id: Date.now(),
+            mentorId: mentorId,
+            mentorName: mentor.name,
+            title: `Mentorship Session with ${mentor.name}`,
+            description: `Initial mentorship session with ${mentor.name}`,
+            date: 'To be scheduled',
+            time: 'To be scheduled',
+            status: 'Pending Confirmation',
+            createdAt: new Date().toISOString()
+        };
+
+        state.sessions.push(session);
+        saveSessions();
+        renderSessions();
+        showToast(`📅 Mentorship request sent to ${mentor.name}! Check your email for next steps.`, 'success');
+        switchTab('sessions');
+    }
+
+    function acceptMentee(menteeId) {
+        const mentee = state.mentees.find(m => m.id === menteeId);
+        if (!mentee) return;
+        mentee.status = 'matched';
+        saveMentees();
+        renderMentees();
+        showToast(`✅ You've accepted ${mentee.name} as a mentee!`, 'success');
+    }
+
+    // ============================================================
+    // MODAL FUNCTIONS
+    // ============================================================
+    function openModal(id) {
+        document.getElementById(id).classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(id) {
+        document.getElementById(id).classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        });
+    });
+
+    // ============================================================
+    // TOAST FUNCTIONS
+    // ============================================================
+    function showToast(message, kind = 'success') {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.className = `toast show ${kind}`;
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 4000);
+    }
+</script>
+</body>
+</html>
